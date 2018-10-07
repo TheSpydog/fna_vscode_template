@@ -23,11 +23,11 @@
   <!-- Copy the correct fnalibs folder on Windows -->
 	<!-- Modified from Andrew Russell's template (https://github.com/AndrewRussellNet/FNA-Template/blob/master/build/CopyFNALibs.targets) -->
   <ItemGroup>
-		<Content Include="..\fnalibs\x86\**\*.*" Condition="'$(OS)' == 'Windows_NT' AND '$(Platform)' == 'x86'">
+		<Content Include="..\fnalibs\x86\**\*.*" Condition="'$(OS)' == 'Windows_NT' AND '$(Platform)' != 'x64'">
 			<Link>x86\%(RecursiveDir)%(Filename)%(Extension)</Link>
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
-		<Content Include="..\fnalibs\x64\**\*.*" Condition="'$(OS)' == 'Windows_NT' AND '$(Platform)' == 'x64'">
+		<Content Include="..\fnalibs\x64\**\*.*" Condition="'$(OS)' == 'Windows_NT' AND '$(Platform)' != 'x86'">
 			<Link>x64\%(RecursiveDir)%(Filename)%(Extension)</Link>
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
