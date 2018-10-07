@@ -14,7 +14,7 @@ else
 	exit 1
 fi
 
-# Unzipping
+# Decompressing
 echo "Decompressing fnalibs..."
 mkdir fnalibs
 tar xjC fnalibs -f fnalibs.tar.bz2
