@@ -1,0 +1,9 @@
+{
+    // This prevents Omnisharp from prematurely creating obj and bin directories.
+    // Change this to true after changing the name of the csproj file and running Restore Project.
+    "omnisharp.autoStart": false,
+
+    // This just circumvents annoying default behavior with the C# extension...
+    // If you really like Code Lens, feel free to change this.
+    "csharp.referencesCodeLens.enabled": false,
+}

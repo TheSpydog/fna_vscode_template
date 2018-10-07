@@ -1,0 +1,104 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Restore Project",
+            "type": "shell",
+            "command": "msbuild",
+            "args": [
+                "/t:restore"
+            ],
+            "group": "build",
+            "problemMatcher": "$msCompile"
+        },
+
+        {
+            "label": "Clean Project",
+            "type": "shell",
+            "command": "msbuild /t:clean /p:configuration=Debug; msbuild /t:clean /p:configuration=Release",
+            "group": "build",
+            "problemMatcher": "$msCompile"
+        },
+
+        {
+            "label": "Build (Debug)",
+            "type": "shell",
+            "command": "msbuild",
+            "args": [
+                "/p:configuration=Debug",
+                "/t:build"
+            ],
+            "group": "build",
+            "problemMatcher": "$msCompile",
+        },
+
+        {
+            "label": "Build (Release)",
+            "type": "shell",
+            "command": "msbuild",
+            "args": [
+                "/p:configuration=Release",
+                "/t:build"
+            ],
+            "group": "build",
+            "problemMatcher": "$msCompile",
+        },
+
+        {
+            "label": "Build and Run (Debug)",
+            "identifier": "Build and Run (Debug)",
+            "type": "shell",
+            "group": "build",
+            "osx":{
+                "command": "mono",
+                "args": [
+                    "${workspaceFolder}/bin/Debug/project_name.exe"
+                ],
+            },
+            "windows":{
+                "command": "cmd",
+                "args": [
+                    "/k",
+                    "${workspaceFolder}/bin/Debug/project_name.exe"
+                ]
+            },
+            "dependsOn": "Build (Debug)",
+            "problemMatcher": "$msCompile"
+        },
+
+        {
+            "label": "Build and Run (Release)",
+            "type": "shell",
+            "group": "build",
+            "osx":{
+                "command": "mono",
+                "args": [
+                    "${workspaceFolder}/bin/Release/project_name.exe"
+                ]
+            },
+            "windows":{
+                "command": "cmd",
+                "args": [
+                    "/k",
+                    "${workspaceFolder}/bin/Release/project_name.exe"
+                ]
+            },
+            "dependsOn": "Build (Release)",
+            "problemMatcher": "$msCompile"
+        },
+
+        {
+            "label": "Build Effects",
+            "type": "shell",
+            "group": "build",
+            "osx":{
+                "command": "${workspaceFolder}/.vscode/buildEffects.sh"
+            },
+            "windows":{
+                "command": "cmd",
+                // TODO!
+            },
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}

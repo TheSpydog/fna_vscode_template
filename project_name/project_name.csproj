@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net46</TargetFramework>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <AssemblyName>project_name</AssemblyName>
+  </PropertyGroup>
+
+  <!-- Reference FNA project -->
+  <ItemGroup>
+    <ProjectReference Include="../FNA/FNA.csproj" />
+  </ItemGroup>
+
+  <!-- Include the Content directory (except for .fx files, since we use .fxb at runtime) -->
+  <ItemGroup>
+    <Content Include="Content/**/*.*" Exclude="**/*.fx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <!-- Copy the correct fnalibs folder on Windows -->
+	<!-- Modified from Andrew Russell's template (https://github.com/AndrewRussellNet/FNA-Template/blob/master/build/CopyFNALibs.targets) -->
+  <ItemGroup>
+		<Content Include="..\fnalibs\x86\**\*.*" Condition="'$(OS)' == 'Windows_NT' AND '$(Platform)' == 'x86'">
+			<Link>x86\%(RecursiveDir)%(Filename)%(Extension)</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\fnalibs\x64\**\*.*" Condition="'$(OS)' == 'Windows_NT' AND '$(Platform)' == 'x64'">
+			<Link>x64\%(RecursiveDir)%(Filename)%(Extension)</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+</Project>

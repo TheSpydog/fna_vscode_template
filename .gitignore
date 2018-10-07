@@ -1,0 +1,5 @@
+.DS_Store
+FNA/
+fnalibs/
+project_name/bin/
+project_name/obj/
