@@ -95,8 +95,7 @@
                 "command": "${workspaceFolder}/.vscode/buildEffects.sh"
             },
             "windows":{
-                "command": "cmd",
-                // TODO!
+                "command": "& ${workspaceFolder}/.vscode/buildEffects.ps1"
             },
             "problemMatcher": "$msCompile"
         }
