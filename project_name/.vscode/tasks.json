@@ -4,10 +4,7 @@
         {
             "label": "Restore Project",
             "type": "shell",
-            "command": "msbuild",
-            "args": [
-                "/t:restore"
-            ],
+            "command": "msbuild /t:restore",
             "group": "build",
             "problemMatcher": "$msCompile"
         },
@@ -46,14 +43,10 @@
 
         {
             "label": "Build and Run (Debug)",
-            "identifier": "Build and Run (Debug)",
             "type": "shell",
             "group": "build",
             "osx":{
-                "command": "mono",
-                "args": [
-                    "${workspaceFolder}/bin/Debug/project_name.exe"
-                ],
+                "command": "DYLD_LIBRARY_PATH=${workspaceFolder}/bin/Debug/osx/ mono ${workspaceFolder}/bin/Debug/project_name.exe"
             },
             "windows":{
                 "command": "cmd",
@@ -71,10 +64,7 @@
             "type": "shell",
             "group": "build",
             "osx":{
-                "command": "mono",
-                "args": [
-                    "${workspaceFolder}/bin/Release/project_name.exe"
-                ]
+                "command": "DYLD_LIBRARY_PATH=${workspaceFolder}/bin/Release/osx/ mono ${workspaceFolder}/bin/Release/project_name.exe"
             },
             "windows":{
                 "command": "cmd",
