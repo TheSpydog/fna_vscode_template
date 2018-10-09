@@ -19,7 +19,7 @@ function downloadFNA()
 {
     checkGit
 	echo "Downloading FNA..."
-	git clone https://github.com/FNA-XNA/FNA.git --recursive
+	git -C $MY_DIR clone https://github.com/FNA-XNA/FNA.git --recursive
 	if [ $? -eq 0 ]; then
 		echo "Finished downloading!"
 	else
@@ -32,7 +32,7 @@ function updateFNA()
 {
     checkGit
     echo "Updating to the latest git version of FNA..."
-	git -C ./FNA pull --recurse-submodules
+	git -C "$MY_DIR/FNA" pull --recurse-submodules
 	if [ $? -eq 0 ]; then
 		echo "Finished updating!"
 	else
@@ -56,8 +56,8 @@ function getLibs()
 
     # Decompressing
     echo "Decompressing fnalibs..."
-    mkdir -p fnalibs
-    tar xjC fnalibs -f fnalibs.tar.bz2
+    mkdir -p $MY_DIR/fnalibs
+    tar xjC $MY_DIR/fnalibs -f fnalibs.tar.bz2
     if [ $? -eq 0 ]; then
         echo "Finished decompressing!"
         rm fnalibs.tar.bz2
@@ -67,8 +67,11 @@ function getLibs()
     fi
 }
 
+# Get the directory of this script
+MY_DIR=$(dirname "$BASH_SOURCE")
+
 # FNA
-if [ ! -d "FNA" ]; then
+if [ ! -d "$MY_DIR/FNA" ]; then
     read -p "Download FNA (y/n)? " shouldDownload
     if [[ $shouldDownload =~ ^[Yy]$ ]]; then
         downloadFNA
@@ -81,7 +84,7 @@ else
 fi
 
 # FNALIBS
-if [ ! -d "fnalibs" ]; then
+if [ ! -d "$MY_DIR/fnalibs" ]; then
     read -p "Download fnalibs (y/n)? " shouldDownloadLibs
 else 
     read -p "Redownload fnalibs (y/n)? " shouldDownloadLibs
