@@ -1,33 +1,91 @@
-#!/bin/sh
-# getFNA
-# Clones/pulls the latest FNA from Github for use as a project reference.
-# Usage: ./getFNA
+#!/bin/bash
+# Program: getFNA
+# Author: Caleb Cornett
+# Usage: ./getFNA.sh
+# Description: Quick and easy way to install a local copy of FNA and its native libraries.
 
-git --version > /dev/null
-if [ $? -eq 1 ]; then
-	echo "ERROR: Git is required to pull FNA from the command line."
-	echo "Either install git or download and unzip FNA manually."
-	exit 1
-fi
+# Checks if git is installed
+function checkGit()
+{
+    git --version > /dev/null 2>&1
+    if [ ! $? -eq 0 ]; then
+        echo >&2 "ERROR: Git is not installed. Please install git to download FNA."
+        exit 1
+    fi
+}
 
-# Downloading
-if [ ! -d "FNA" ]; then
-	echo "Cloning FNA..."
+# Clones FNA from the git master branch
+function downloadFNA()
+{
+    checkGit
+	echo "Downloading FNA..."
 	git clone https://github.com/FNA-XNA/FNA.git --recursive
 	if [ $? -eq 0 ]; then
-		echo "Finished cloning!"
+		echo "Finished downloading!"
 	else
-		echo "ERROR: Unable to clone successfully. Maybe try again later?"
-		exit 1
+		echo >&2 "ERROR: Unable to download successfully. Maybe try again later?"
 	fi
-else
-	echo "Pulling the latest git version of FNA..."
-	cd FNA
-	git pull --recurse-submodules
+}
+
+# Pulls FNA from the git master branch
+function updateFNA()
+{
+    checkGit
+    echo "Updating to the latest git version of FNA..."
+	git -C ./FNA pull --recurse-submodules
 	if [ $? -eq 0 ]; then
 		echo "Finished updating!"
 	else
-		echo "ERROR: Unable to update."
+		echo >&2 "ERROR: Unable to update."
 		exit 1
 	fi
+}
+
+# Downloads and extracts prepackaged archive of native libraries ("fnalibs")
+function getLibs()
+{
+    # Downloading
+    echo "Downloading latest fnalibs..."
+    curl http://fna.flibitijibibo.com/archive/fnalibs.tar.bz2 > fnalibs.tar.bz2
+    if [ $? -eq 0 ]; then
+        echo "Finished downloading!"
+    else
+        >&2 echo "ERROR: Unable to download successfully."
+        exit 1
+    fi
+
+    # Decompressing
+    echo "Decompressing fnalibs..."
+    mkdir -p fnalibs
+    tar xjC fnalibs -f fnalibs.tar.bz2
+    if [ $? -eq 0 ]; then
+        echo "Finished decompressing!"
+        rm fnalibs.tar.bz2
+    else
+        >&2 echo "ERROR: Unable to decompress successfully."
+        exit 1
+    fi
+}
+
+# FNA
+if [ ! -d "FNA" ]; then
+    read -p "Download FNA (y/n)? " shouldDownload
+    if [[ $shouldDownload =~ ^[Yy]$ ]]; then
+        downloadFNA
+    fi
+else
+    read -p "Update FNA (y/n)? " shouldUpdate
+    if [[ $shouldUpdate =~ ^[Yy]$ ]]; then
+        updateFNA
+    fi
+fi
+
+# FNALIBS
+if [ ! -d "fnalibs" ]; then
+    read -p "Download fnalibs (y/n)? " shouldDownloadLibs
+else 
+    read -p "Redownload fnalibs (y/n)? " shouldDownloadLibs
+fi
+if [[ $shouldDownloadLibs =~ ^[Yy]$ ]]; then
+    getLibs
 fi

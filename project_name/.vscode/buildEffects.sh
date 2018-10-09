@@ -1,4 +1,5 @@
 #!/bin/bash
+# buildEffects
 # Compiles all .fx files found in the project's Content directory.
 # Intended for usage with VS Code Build Tasks tooling.
 # You may need to change the path to fxc.exe depending on your installation.
