@@ -46,7 +46,7 @@ function getLibs()
 {
     # Downloading
     echo "Downloading latest fnalibs..."
-    curl http://fna.flibitijibibo.com/archive/fnalibs.tar.bz2 > fnalibs.tar.bz2
+    curl http://fna.flibitijibibo.com/archive/fnalibs.tar.bz2 > $MYDIR/fnalibs.tar.bz2
     if [ $? -eq 0 ]; then
         echo "Finished downloading!"
     else
@@ -57,10 +57,10 @@ function getLibs()
     # Decompressing
     echo "Decompressing fnalibs..."
     mkdir -p $MY_DIR/fnalibs
-    tar xjC $MY_DIR/fnalibs -f fnalibs.tar.bz2
+    tar xjC $MY_DIR/fnalibs -f $MY_DIR/fnalibs.tar.bz2
     if [ $? -eq 0 ]; then
         echo "Finished decompressing!"
-        rm fnalibs.tar.bz2
+        rm $MY_DIR/fnalibs.tar.bz2
     else
         >&2 echo "ERROR: Unable to decompress successfully."
         exit 1
