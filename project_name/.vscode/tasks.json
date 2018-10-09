@@ -12,9 +12,9 @@
         {
             "label": "Clean Project",
             "type": "shell",
-            "command": "msbuild /t:clean /p:configuration=Debug; msbuild /t:clean /p:configuration=Release",
+            "command": "msbuild /t:clean /p:configuration=Debug ; msbuild /t:clean /p:configuration=Release",
             "group": "build",
-            "problemMatcher": "$msCompile"
+            "problemMatcher": "$msCompile",
         },
 
         {

@@ -10,7 +10,12 @@
             "request": "launch",
             "program": "${workspaceFolder}/bin/Debug/project_name.exe",
             "cwd": "${workspaceFolder}",
-            "preLaunchTask": "Build (Debug)"
+            "preLaunchTask": "Build (Debug)",
+            "osx":{
+                "env": {
+                    "DYLD_LIBRARY_PATH": "${workspaceFolder}/bin/Debug/osx/"
+                },
+            }
         },
         {
             "name": "Attach",
