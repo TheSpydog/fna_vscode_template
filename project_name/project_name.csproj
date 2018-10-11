@@ -15,7 +15,7 @@
 
   <!-- Include the Content directory (except for .fx files, since we use .fxb at runtime) -->
   <ItemGroup>
-    <Content Include="Content/**/*.*" Exclude="**/*.fx">
+    <Content Include="Content/**/*.*" Exclude="**/*.fx; Content/Content-Goes-Here.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
