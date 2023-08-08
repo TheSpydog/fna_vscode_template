@@ -47,7 +47,7 @@ function getLibs()
 {
     # Downloading
     Write-Output "Downloading latest fnalibs..."
-    Invoke-WebRequest -Uri http://fna.flibitijibibo.com/archive/fnalibs.tar.bz2 -OutFile $PSScriptRoot/fnalibs.tar.bz2
+    Invoke-WebRequest -Uri https://fna.flibitijibibo.com/archive/fnalibs.tar.bz2 -OutFile $PSScriptRoot/fnalibs.tar.bz2
     if ($?) {
         Write-Output "Finished downloading!"
     }

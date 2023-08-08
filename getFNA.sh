@@ -46,7 +46,7 @@ function getLibs()
 {
     # Downloading
     echo "Downloading latest fnalibs..."
-    curl http://fna.flibitijibibo.com/archive/fnalibs.tar.bz2 > "$MY_DIR/fnalibs.tar.bz2"
+    curl https://fna.flibitijibibo.com/archive/fnalibs.tar.bz2 > "$MY_DIR/fnalibs.tar.bz2"
     if [ $? -eq 0 ]; then
         echo "Finished downloading!"
     else
